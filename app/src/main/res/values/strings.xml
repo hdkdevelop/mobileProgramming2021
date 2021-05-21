@@ -4,4 +4,7 @@
     <string name="statistic_title">통계</string>
     <string name="statistic_achievement">성취도</string>
     <string name="statistic_category_rate">카테고리별 습관 비율</string>
+    <string name="period_week">최근 1주일</string>
+    <string name="period_month">최근 1개월</string>
+    <string name="period_year">최근 1년</string>
 </resources>

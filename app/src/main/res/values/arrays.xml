@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="period_preset">
+        <item>@string/period_week</item>
+        <item>@string/period_month</item>
+        <item>@string/period_year</item>
+    </string-array>
+</resources>
