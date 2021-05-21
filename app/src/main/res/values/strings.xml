@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Daily To-Do</string>
+    <string name="dummy">label</string>
+    <string name="statistic_title">통계</string>
+    <string name="statistic_achievement">성취도</string>
+    <string name="statistic_category_rate">카테고리별 습관 비율</string>
 </resources>
