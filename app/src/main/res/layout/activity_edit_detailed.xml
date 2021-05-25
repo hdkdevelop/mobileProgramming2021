@@ -5,13 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layoutDescription="@xml/activity_datailed_scene"
-    tools:context=".DatailedActivity" >
+    tools:context=".EditDetailedActivity" >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -39,6 +38,8 @@
                 app:iconSize="40dp"
                 app:iconTint="#000000" />
         </LinearLayout>
+
+
         <TextView
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
@@ -50,17 +51,17 @@
             android:textSize="24sp"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/textView2"
+        <EditText
+            android:id="@+id/edit2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="21dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginTop="11dp"
             android:inputType="textPersonName"
             android:text="editable"
             android:textColor="#000000"
             android:textSize="22sp" />
+
         <TextView
             android:id="@+id/textView3"
             android:layout_width="282dp"
@@ -72,13 +73,12 @@
             android:textSize="24sp"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/textView4"
+        <EditText
+            android:id="@+id/edit4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="21dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginTop="11dp"
             android:ems="10"
             android:inputType="textPersonName"
             android:text="editable"
@@ -96,13 +96,12 @@
             android:textSize="24sp"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/textView6"
+        <EditText
+            android:id="@+id/edit6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="21dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginTop="11dp"
             android:ems="10"
             android:inputType="textPersonName"
             android:text="editable"
@@ -120,13 +119,12 @@
             android:textSize="24sp"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/textView8"
+        <EditText
+            android:id="@+id/edit8"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="21dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginTop="11dp"
             android:ems="10"
             android:inputType="textPersonName"
             android:text="editable"
@@ -145,13 +143,12 @@
             android:textSize="24sp"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/textView10"
+        <EditText
+            android:id="@+id/edit10"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="21dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginTop="11dp"
             android:ems="10"
             android:inputType="textPersonName"
             android:text="editable"
@@ -169,26 +166,41 @@
             android:textSize="24sp"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/textView12"
+        <EditText
+            android:id="@+id/edit12"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="21dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginTop="11dp"
             android:ems="10"
             android:inputType="textPersonName"
             android:text="editable"
             android:textColor="#000000"
             android:textSize="22sp" />
 
-        <Button
-            android:id="@+id/button3"
-            android:layout_width="121dp"
-            android:layout_height="36dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="11dp"
-            android:text="수정하기"
-            android:textColor="#000000" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/button3"
+                android:layout_width="121dp"
+                android:layout_height="36dp"
+                android:layout_gravity="center"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="11dp"
+                android:text="취소"
+                android:textColor="#000000" />
+            <Button
+                android:id="@+id/button4"
+                android:layout_width="121dp"
+                android:layout_height="36dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="11dp"
+                android:text="수정하기"
+                android:textColor="#000000" />
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>
