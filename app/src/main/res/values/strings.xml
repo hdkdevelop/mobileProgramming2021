@@ -7,4 +7,6 @@
     <string name="period_week">최근 1주일</string>
     <string name="period_month">최근 1개월</string>
     <string name="period_year">최근 1년</string>
+    <string name="month">월</string>
+    <string name="day">일</string>
 </resources>
