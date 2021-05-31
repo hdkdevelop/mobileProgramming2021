@@ -22,11 +22,15 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.add -> {
-                var intent = Intent(this, DatailedActivity::class.java)
+            R.id.addact -> {
+                var intent = Intent(this, AddhabitActivity::class.java)
                 startActivity(intent)
             }
-            //TODO 이름 몰라서 이렇게해놓음..
+            R.id.addcate -> {
+                var intent = Intent(this, AddcateActivity::class.java)
+                startActivity(intent)
+            }
+            //TODO 이름 알게되서 완성.
         }
         return super.onOptionsItemSelected(item)
     }

@@ -4,8 +4,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     tools:ignore="ExtraText">
     <item
-        android:id="@+id/add"
-        android:icon="@android:drawable/ic_input_add"
-        android:title="Item"
-        app:showAsAction="always" />
+        android:id="@+id/addcate"
+        android:title="카테고리 추가" />
+    <item
+        android:id="@+id/addact"
+        android:title="습관 추가" />
 </menu>
