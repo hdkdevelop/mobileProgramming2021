@@ -14,6 +14,7 @@ class Database(val context:Context) : SQLiteOpenHelper(context, DB_NAME, null, D
         }
 
         // 디비 필요한부분 각자 추가
+        //TODO 카테고리별로 1차분류필요.or카테고리를 정보에 포함시켜야함. 연속달성 일수와 총 달성 일수도 필요함.-구현 요청.-main
         override fun onCreate(db: SQLiteDatabase?) {}
         override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {}
 

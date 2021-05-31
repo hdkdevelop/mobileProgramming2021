@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
         menuInflater.inflate(R.menu.menu_main, menu)
         return true
     }
-
+//Todo 메뉴바가 제대로 안나오는 부분 확인해봐야함.
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.addact -> {
@@ -34,4 +34,5 @@ class MainActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
+    //Todo 어댑터 구현., init구현.
 }
