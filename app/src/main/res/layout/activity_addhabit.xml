@@ -9,100 +9,90 @@
 
     <EditText
         android:id="@+id/habitdetail"
-        android:layout_width="0dp"
+        android:layout_width="329dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="41dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="41dp"
+        android:layout_marginBottom="80dp"
         android:ems="10"
         android:hint="습관에 대해 설명해주세요."
         android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/habitcatespinner"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView13" />
+        app:layout_constraintHorizontal_bias="0.487"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="41dp"
-        android:layout_marginTop="240dp"
+        android:layout_marginBottom="20dp"
         android:text="습관 설명"
         android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toTopOf="@+id/habitdetail"
+        app:layout_constraintStart_toStartOf="@+id/habitdetail" />
+
+    <EditText
+        android:id="@+id/habitname"
+        android:layout_width="329dp"
+        android:layout_height="46dp"
+        android:layout_marginBottom="80dp"
+        android:ems="10"
+        android:hint="습관 이름을 입력해주세요."
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/habitdetail"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.487"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="41dp"
-        android:layout_marginTop="104dp"
+        android:layout_marginBottom="20dp"
         android:text="습관명"
         android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/habitname"
-        android:layout_width="0dp"
-        android:layout_height="46dp"
-        android:layout_marginStart="41dp"
-        android:layout_marginTop="57dp"
-        android:layout_marginEnd="41dp"
-        android:layout_marginBottom="60dp"
-        android:ems="10"
-        android:hint="습관 이름을 입력해주세요."
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="@+id/textView13"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView" />
+        app:layout_constraintBottom_toTopOf="@+id/habitname"
+        app:layout_constraintStart_toStartOf="@+id/habitname" />
 
     <TextView
         android:id="@+id/textView14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="41dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginBottom="20dp"
         android:text="습관 카테고리"
         android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/habitdetail" />
+        app:layout_constraintBottom_toTopOf="@+id/habitcatespinner"
+        app:layout_constraintStart_toStartOf="@+id/habitcatespinner" />
+
+    <Spinner
+        android:id="@+id/habitcatespinner"
+        android:layout_width="329dp"
+        android:layout_height="45dp"
+        android:layout_marginBottom="50dp"
+        app:layout_constraintBottom_toTopOf="@+id/btcancel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.487"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/btcancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="59dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginBottom="150dp"
         android:text="취소"
         android:textColor="@color/black"
-        app:layout_constraintBaseline_toBaselineOf="@+id/btadd"
-        app:layout_constraintStart_toStartOf="@+id/spinner" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/btadd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="35dp"
-        android:layout_marginTop="151dp"
+        android:layout_marginEnd="100dp"
         android:layout_marginBottom="150dp"
         android:text="등록"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btcancel"
-        app:layout_constraintTop_toTopOf="@+id/textView14" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
-    <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="0dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="41dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="41dp"
-        android:layout_marginBottom="40dp"
-        app:layout_constraintBottom_toTopOf="@+id/btcancel"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView14" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,71 +10,72 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
+        android:layout_marginStart="41dp"
+        android:layout_marginTop="143dp"
         android:text="카테고리명"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/catename"
-        app:layout_constraintStart_toStartOf="@+id/catename" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/catename"
         android:layout_width="0dp"
         android:layout_height="46dp"
         android:layout_marginStart="41dp"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="57dp"
         android:layout_marginEnd="41dp"
+        android:layout_marginBottom="60dp"
         android:ems="10"
         android:hint="카테고리 이름을 입력해주세요."
         android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="@+id/textView13"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/textView" />
 
     <TextView
         android:id="@+id/textView13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
+        android:layout_marginStart="41dp"
+        android:layout_marginTop="279dp"
         android:text="카테고리 설명"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/catedetail"
-        app:layout_constraintStart_toStartOf="@+id/catedetail" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/catedetail"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="41dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="41dp"
-        android:layout_marginBottom="350dp"
         android:ems="10"
         android:hint="카테고리에 대해 설명해주세요."
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
     <Button
         android:id="@+id/btcancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
-        android:layout_marginBottom="200dp"
         android:text="취소"
         android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBaseline_toBaselineOf="@+id/btadd"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/btadd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="100dp"
-        android:layout_marginBottom="200dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="100dp"
         android:text="등록"
         android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/btcancel"
+        app:layout_constraintTop_toBottomOf="@+id/catedetail" />
 </androidx.constraintlayout.widget.ConstraintLayout>
