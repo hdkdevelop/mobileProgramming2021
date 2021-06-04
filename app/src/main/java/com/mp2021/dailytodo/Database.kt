@@ -1,9 +1,11 @@
 package com.mp2021.dailytodo;
 
 
+import android.content.ContentValues
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import com.mp2021.dailytodo.data.Habit
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -66,5 +68,21 @@ class Database(val context:Context) : SQLiteOpenHelper(context, DB_NAME, null, D
                 dummy.add(Pair("카테고리 미분류", 42.9))
                 return dummy
         }
+
+        fun insertHabit(habit: Habit):Boolean{
+                val values = ContentValues()
+                values.put(habitid, habit.id)
+                values.put(categoryId, habit.categoryId)
+                values.put(title, habit.title)
+                values.put(startDate, habit.startDate.toString())
+                values.put(detail, habit.detail)
+                values.put(favored, habit.favored)
+                values.put(categoryname, habit.catagoryname)
+                val db = writableDatabase
+                val flag = db.insert(tableName, null, values)>0
+                db.close()
+                return flag
+        }
+
 
 }
