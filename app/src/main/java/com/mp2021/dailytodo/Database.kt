@@ -11,11 +11,36 @@ class Database(val context:Context) : SQLiteOpenHelper(context, DB_NAME, null, D
         companion object {
                 const val DB_NAME = "_.db"
                 const val DB_VERSION = 1
+                val habitid= "habit_id"//습관 id
+                val title="title"//습관 이름
+                val tableName="product"//테이블 이름
+                val tableName2="catagory"//테이블 이름
+                val categoryId= "catagory_id"//카테고리id
+                val startDate= "date"//시작날짜.
+                var detail="habit_detail"//습관 설명.
+                val favored="favored"//0과1로 favor했는지 확인.
+                val categoryname="catagory_name"//카테고리 이름.
+                val completed="completed"//완료했는지
+                val completeddate="completed_date"//완료한 총 일 수.
         }
 
         // 디비 필요한부분 각자 추가
         //TODO 카테고리별로 1차분류필요.or카테고리를 정보에 포함시켜야함. 연속달성 일수와 총 달성 일수도 필요함,즐겨찾기관련 데이터(앱이름, 시작날짜) 즐겨찾기 개수도!-구현 요청.-main
-        override fun onCreate(db: SQLiteDatabase?) {}
+        override fun onCreate(db: SQLiteDatabase?) {
+                val create_table="create table if not exists $tableName(" +
+                        "$habitid integer primary key autoincrement, " +
+                        "$title text," +
+                        "$detail text," +
+                        "$startDate text," +
+                        "$favored integer);"
+                val create_table2="create table if not exists $tableName2(" +
+                        "$categoryId integer primary key autoincrement, " +
+                        "$categoryname " +
+                        "$completed integer" +
+                        "$completeddate integer);"
+                db!!.execSQL(create_table2)
+                db!!.execSQL(create_table)
+        }
         override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {}
 
         fun getAchievements(daysAgo: Int): ArrayList<Pair<Date, Int>> {
