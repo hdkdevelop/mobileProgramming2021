@@ -53,8 +53,7 @@ class MainActivity : AppCompatActivity() {
         adapter.itemClickListener = object : MyHabitAdapter.OnItemClickListener{
             override fun OnItemClick(holder: MyHabitAdapter.ViewHolder, view: View, data: MyHabit, position: Int) {
                 var i = Intent(this@MainActivity, AddhabitActivity::class.java)
-                i.putExtra(data.habit_name,"name")
-                i.putExtra(data.start_date,"date")
+                i.putExtra("id",data.id)
                 startActivity(i)
             }
         }

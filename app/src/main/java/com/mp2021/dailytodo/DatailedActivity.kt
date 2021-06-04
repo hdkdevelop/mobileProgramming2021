@@ -5,18 +5,15 @@ import android.os.Bundle
 import android.view.Window
 
 class DatailedActivity : AppCompatActivity() {
-    lateinit var name: String
-    lateinit var date: String
+    var id=-1
     override fun onCreate(savedInstanceState: Bundle?) {
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_datailed)
-        if (intent.hasExtra("name")&&intent.hasExtra("date")){
-            name= intent.getStringExtra("name").toString()
-            date=intent.getStringExtra("date").toString()
+        if (intent.hasExtra("id")){
+            id = intent.getIntExtra("id",-1)
         }else{
-            name="error"
-            date="error"
+            id=-1
         }
         init()
     }
