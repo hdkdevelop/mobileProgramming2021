@@ -141,5 +141,5 @@ class Database(val context:Context) : SQLiteOpenHelper(context, DB_NAME, null, D
                 var c = database.rawQuery(query,null)
                 return c.getString(c.getColumnIndex(startDate))
         }
-
+        fun update
 }

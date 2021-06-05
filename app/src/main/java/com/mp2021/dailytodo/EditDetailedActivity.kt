@@ -74,14 +74,9 @@ class EditDetailedActivity : AppCompatActivity() {
         starttext=findViewById(R.id.textView12)
         initText()
         editBtn.setOnClickListener{
-            /*var intent = Intent(this, EditDetailedActivity::class.java)
+            var intent = Intent(this, EditDetailedActivity::class.java)
             intent.putExtra("name",nametext.text)
             intent.putExtra("detail",detailtext.text)
-            intent.putExtra("category",categorytext.text)
-            intent.putExtra("streak",streaktext.text)
-            intent.putExtra("total",totaltext.text)
-            intent.putExtra("start",starttext.text)
-            intent.putExtra("id",id)*/
             //TODO 위에껄 액티비티가아니라 데이터베이스로 보내야됨.
             onBackPressed()
         }
