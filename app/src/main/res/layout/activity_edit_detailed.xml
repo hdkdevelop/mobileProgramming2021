@@ -11,33 +11,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/button4"
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="90dp"
                 android:layout_height="62dp"
+                android:layout_gravity="left"
                 android:text="Button"
                 app:icon="@drawable/abc_vector_test"
                 app:iconSize="40dp"
                 app:iconTint="#000000" />
 
-            <Button
-                android:id="@+id/button5"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="90dp"
-                android:layout_height="62dp"
-                android:layout_marginLeft="230dp"
-                android:text="Button"
-                app:icon="@drawable/star_off"
-                app:iconSize="40dp"
-                app:iconTint="#000000" />
-        </LinearLayout>
 
 
         <TextView
@@ -188,7 +173,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/button6"
+                android:id="@+id/button5"
                 android:layout_width="121dp"
                 android:layout_height="36dp"
                 android:layout_gravity="center"
@@ -197,7 +182,7 @@
                 android:text="취소"
                 android:textColor="#000000" />
             <Button
-                android:id="@+id/button7"
+                android:id="@+id/button6"
                 android:layout_width="121dp"
                 android:layout_height="36dp"
                 android:layout_gravity="center"

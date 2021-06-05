@@ -39,12 +39,12 @@ class DatailedActivity : AppCompatActivity() {
         inittext()
         editbtn.setOnClickListener{
             var intent = Intent(this, EditDetailedActivity::class.java)
-            intent.putExtra("name",nametext.text)
-            intent.putExtra("detail",detailtext.text)
-            intent.putExtra("category",categorytext.text)
-            intent.putExtra("streak",streaktext.text)
-            intent.putExtra("total",totaltext.text)
-            intent.putExtra("start",starttext.text)
+            intent.putExtra("name",nametext.text.toString())
+            intent.putExtra("detail",detailtext.text.toString())
+            intent.putExtra("category",categorytext.text.toString())
+            intent.putExtra("streak",streaktext.text.toString().toInt())
+            intent.putExtra("total",totaltext.text.toString().toInt())
+            intent.putExtra("start",starttext.text.toString())
             intent.putExtra("id",id)
             startActivity(intent)
         }
@@ -61,12 +61,12 @@ class DatailedActivity : AppCompatActivity() {
     }
     private fun inittext{
         if(id==-1){
-            nametext.text="error"
-            detailtext.text="error"
-            categorytext.text="error"
-            streaktext.text="error"
-            totaltext.text="error"
-            starttext.text="error"
+            nametext.setText("error")
+            detailtext.setText("error")
+            categorytext.setText("error")
+            streaktext.setText("error")
+            totaltext.setText("error")
+            starttext.setText("error")
         }else{
             //TODO-db에서 정보가져와야되는데 모르겠음.
         }
