@@ -103,6 +103,7 @@ class Database(context:Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_VE
                         val completed2 = c.getInt(c.getColumnIndex(completed))
                         AL.add(MyHabit(habit_name,start_date,streak,habit_detail,id, completed2))
                 }
+                c.close()
                 database.close()
                 return AL
         }
@@ -111,6 +112,7 @@ class Database(context:Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_VE
                 val query = "select * from $tableName where $habitid ='$id';"
                 val c = database.rawQuery(query,null)
                 database.close()
+                c.close()
                 return c.getString(c.getColumnIndex(title))
         }
         fun getDetail(id:Int):String{
@@ -118,12 +120,14 @@ class Database(context:Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_VE
                 val query = "select * from $tableName where $habitid ='$id';"
                 val c = database.rawQuery(query,null)
                 database.close()
+                c.close()
                 return c.getString(c.getColumnIndex(detail))
         }
         fun getCategory(id:Int):String{
                 val database=readableDatabase
                 val query = "select * from $tableName where $habitid ='$id';"
                 val c = database.rawQuery(query,null)
+                c.close()
                 database.close()
                 return c.getString(c.getColumnIndex(categoryname))
         }
@@ -131,6 +135,7 @@ class Database(context:Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_VE
                 val database=readableDatabase
                 val query = "select * from $tableName where $habitid ='$id';"
                 val c = database.rawQuery(query,null)
+                c.close()
                 database.close()
                 return c.getInt(c.getColumnIndex(streak)).toString()
         }
@@ -138,6 +143,7 @@ class Database(context:Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_VE
                 val database=readableDatabase
                 val query = "select * from $tableName where $habitid ='$id';"
                 val c = database.rawQuery(query,null)
+                c.close()
                 database.close()
                 return c.getInt(c.getColumnIndex(completeddate)).toString()
         }
@@ -145,6 +151,7 @@ class Database(context:Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_VE
                 val database=this.readableDatabase
                 val query = "select * from $tableName where $habitid ='$id';"
                 val c = database.rawQuery(query,null)
+                c.close()
                 database.close()
                 return c.getString(c.getColumnIndex(startDate))
         }
