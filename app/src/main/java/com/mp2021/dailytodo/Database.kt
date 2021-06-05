@@ -136,7 +136,7 @@ class Database(val context:Context) : SQLiteOpenHelper(context, DB_NAME, null, D
                 return c.getInt(c.getColumnIndex(completeddate)).toString()
         }
         fun getStart(id:Int):String{
-                var database=this.writableDatabase
+                var database=this.readableDatabase
                 var query = "select * from $tableName where $habitid ='$id';"
                 var c = database.rawQuery(query,null)
                 return c.getString(c.getColumnIndex(startDate))
