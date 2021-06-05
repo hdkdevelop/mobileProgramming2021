@@ -1,14 +1,15 @@
 package com.mp2021.dailytodo
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 
 class EditDetailedActivity : AppCompatActivity() {
+    var db = Database(this)
     var id=-1
     var name=""
     var detail =""
@@ -74,10 +75,9 @@ class EditDetailedActivity : AppCompatActivity() {
         starttext=findViewById(R.id.textView12)
         initText()
         editBtn.setOnClickListener{
-            var intent = Intent(this, EditDetailedActivity::class.java)
-            intent.putExtra("name",nametext.text)
-            intent.putExtra("detail",detailtext.text)
-            //TODO 위에껄 액티비티가아니라 데이터베이스로 보내야됨.
+            db.updateHabit(id,name,detail)
+            Handler().postDelayed({
+            }, 200)
             onBackPressed()
         }
         backBtn.setOnClickListener{

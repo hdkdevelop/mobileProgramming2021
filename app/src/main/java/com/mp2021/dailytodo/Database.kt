@@ -9,7 +9,7 @@ import com.mp2021.dailytodo.data.Habit
 import java.util.*
 import kotlin.collections.ArrayList
 
-class Database(val context:Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_VERSION) {
+class Database(context:Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_VERSION) {
         companion object {
                 const val DB_NAME = "_.db"
                 const val DB_VERSION = 1
@@ -43,7 +43,7 @@ class Database(val context:Context) : SQLiteOpenHelper(context, DB_NAME, null, D
                         "$categoryId integer primary key autoincrement, " +
                         "$categoryname text);"
                 db!!.execSQL(create_table2)
-                db!!.execSQL(create_table)
+                db.execSQL(create_table)
         }
         override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {}
 
@@ -87,59 +87,81 @@ class Database(val context:Context) : SQLiteOpenHelper(context, DB_NAME, null, D
         }
         //즐찾 확인.(메인확인에 보여주기 위해.)
         fun getFavored():ArrayList<MyHabit>{
-                var AL = ArrayList<MyHabit>()
-                var database=readableDatabase
-                var query = "select * from $tableName where $favored ='1';"
-                var c = database.rawQuery(query,null)
+                val AL = ArrayList<MyHabit>()
+                val database=readableDatabase
+                val query = "select * from $tableName where $favored ='1';"
+                val c = database.rawQuery(query,null)
                 var attrcount = c.columnCount
                 if(attrcount>3)
                         attrcount=3
                 for (i in 0 until attrcount) {
-                        var habit_detail = c.getString(c.getColumnIndex(detail))
-                        var habit_name = c.getString(c.getColumnIndex(title))
-                        var id = c.getLong(c.getColumnIndex(habitid))
-                        var start_date = c.getString(c.getColumnIndex(startDate))
-                        var streak = c.getInt(c.getColumnIndex(streak))
-                        var completed2 = c.getInt(c.getColumnIndex(completed))
+                        val habit_detail = c.getString(c.getColumnIndex(detail))
+                        val habit_name = c.getString(c.getColumnIndex(title))
+                        val id = c.getLong(c.getColumnIndex(habitid))
+                        val start_date = c.getString(c.getColumnIndex(startDate))
+                        val streak = c.getInt(c.getColumnIndex(streak))
+                        val completed2 = c.getInt(c.getColumnIndex(completed))
                         AL.add(MyHabit(habit_name,start_date,streak,habit_detail,id, completed2))
                 }
+                database.close()
                 return AL
         }
         fun getName(id:Int):String{
-                var database=readableDatabase
-                var query = "select * from $tableName where $habitid ='$id';"
-                var c = database.rawQuery(query,null)
+                val database=readableDatabase
+                val query = "select * from $tableName where $habitid ='$id';"
+                val c = database.rawQuery(query,null)
+                database.close()
                 return c.getString(c.getColumnIndex(title))
         }
         fun getDetail(id:Int):String{
-                var database=readableDatabase
-                var query = "select * from $tableName where $habitid ='$id';"
-                var c = database.rawQuery(query,null)
+                val database=readableDatabase
+                val query = "select * from $tableName where $habitid ='$id';"
+                val c = database.rawQuery(query,null)
+                database.close()
                 return c.getString(c.getColumnIndex(detail))
         }
         fun getCategory(id:Int):String{
-                var database=readableDatabase
-                var query = "select * from $tableName where $habitid ='$id';"
-                var c = database.rawQuery(query,null)
+                val database=readableDatabase
+                val query = "select * from $tableName where $habitid ='$id';"
+                val c = database.rawQuery(query,null)
+                database.close()
                 return c.getString(c.getColumnIndex(categoryname))
         }
         fun getStreak(id:Int):String{
-                var database=readableDatabase
-                var query = "select * from $tableName where $habitid ='$id';"
-                var c = database.rawQuery(query,null)
+                val database=readableDatabase
+                val query = "select * from $tableName where $habitid ='$id';"
+                val c = database.rawQuery(query,null)
+                database.close()
                 return c.getInt(c.getColumnIndex(streak)).toString()
         }
         fun getTotal(id:Int):String{
-                var database=readableDatabase
-                var query = "select * from $tableName where $habitid ='$id';"
-                var c = database.rawQuery(query,null)
+                val database=readableDatabase
+                val query = "select * from $tableName where $habitid ='$id';"
+                val c = database.rawQuery(query,null)
+                database.close()
                 return c.getInt(c.getColumnIndex(completeddate)).toString()
         }
         fun getStart(id:Int):String{
-                var database=this.readableDatabase
-                var query = "select * from $tableName where $habitid ='$id';"
-                var c = database.rawQuery(query,null)
+                val database=this.readableDatabase
+                val query = "select * from $tableName where $habitid ='$id';"
+                val c = database.rawQuery(query,null)
+                database.close()
                 return c.getString(c.getColumnIndex(startDate))
         }
-        fun update
+        fun updateHabit(id:Int, name:String, detail2:String):Boolean{
+                val strsql = "select * frota$tableName where $habitid='$id';"
+                val db = writableDatabase
+                val cursor = db.rawQuery(strsql, null)
+                val flag = cursor.count!=0
+                if(flag){
+                        cursor.moveToFirst()
+                        val values = ContentValues()
+                        values.put(title, name)
+                        values.put(detail, detail2)
+                        db.update(tableName,values,"$habitid=?", arrayOf(id.toString()))
+                }
+                cursor.close()
+                db.close()
+                return flag
+        }
 }
