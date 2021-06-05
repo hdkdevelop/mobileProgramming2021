@@ -21,6 +21,7 @@ class Database(val context:Context) : SQLiteOpenHelper(context, DB_NAME, null, D
                 val startDate= "date"//시작날짜.
                 var detail="habit_detail"//습관 설명.
                 val favored="favored"//0과1로 favor했는지 확인.
+                val streak="streak"//연속 완료 일 수.
                 val categoryname="catagory_name"//카테고리 이름.
                 val completed="completed"//완료했는지
                 val completeddate="completed_date"//완료한 총 일 수.
@@ -34,12 +35,13 @@ class Database(val context:Context) : SQLiteOpenHelper(context, DB_NAME, null, D
                         "$title text," +
                         "$detail text," +
                         "$startDate text," +
-                        "$favored integer);"
+                        "$streak integer," +
+                        "$completed integer" +
+                        "$favored integer" +
+                        "$completeddate integer);"
                 val create_table2="create table if not exists $tableName2(" +
                         "$categoryId integer primary key autoincrement, " +
-                        "$categoryname " +
-                        "$completed integer" +
-                        "$completeddate integer);"
+                        "$categoryname text);"
                 db!!.execSQL(create_table2)
                 db!!.execSQL(create_table)
         }
@@ -83,6 +85,61 @@ class Database(val context:Context) : SQLiteOpenHelper(context, DB_NAME, null, D
                 db.close()
                 return flag
         }
-
+        //즐찾 확인.(메인확인에 보여주기 위해.)
+        fun getFavored():ArrayList<MyHabit>{
+                var AL = ArrayList<MyHabit>()
+                var database=readableDatabase
+                var query = "select * from $tableName where $favored ='1';"
+                var c = database.rawQuery(query,null)
+                var attrcount = c.columnCount
+                if(attrcount>3)
+                        attrcount=3
+                for (i in 0 until attrcount) {
+                        var habit_detail = c.getString(c.getColumnIndex(detail))
+                        var habit_name = c.getString(c.getColumnIndex(title))
+                        var id = c.getLong(c.getColumnIndex(habitid))
+                        var start_date = c.getString(c.getColumnIndex(startDate))
+                        var streak = c.getInt(c.getColumnIndex(streak))
+                        var completed2 = c.getInt(c.getColumnIndex(completed))
+                        AL.add(MyHabit(habit_name,start_date,streak,habit_detail,id, completed2))
+                }
+                return AL
+        }
+        fun getName(id:Int):String{
+                var database=readableDatabase
+                var query = "select * from $tableName where $habitid ='$id';"
+                var c = database.rawQuery(query,null)
+                return c.getString(c.getColumnIndex(title))
+        }
+        fun getDetail(id:Int):String{
+                var database=readableDatabase
+                var query = "select * from $tableName where $habitid ='$id';"
+                var c = database.rawQuery(query,null)
+                return c.getString(c.getColumnIndex(detail))
+        }
+        fun getCategory(id:Int):String{
+                var database=readableDatabase
+                var query = "select * from $tableName where $habitid ='$id';"
+                var c = database.rawQuery(query,null)
+                return c.getString(c.getColumnIndex(categoryname))
+        }
+        fun getStreak(id:Int):String{
+                var database=readableDatabase
+                var query = "select * from $tableName where $habitid ='$id';"
+                var c = database.rawQuery(query,null)
+                return c.getInt(c.getColumnIndex(streak)).toString()
+        }
+        fun getTotal(id:Int):String{
+                var database=readableDatabase
+                var query = "select * from $tableName where $habitid ='$id';"
+                var c = database.rawQuery(query,null)
+                return c.getInt(c.getColumnIndex(completeddate)).toString()
+        }
+        fun getStart(id:Int):String{
+                var database=this.writableDatabase
+                var query = "select * from $tableName where $habitid ='$id';"
+                var c = database.rawQuery(query,null)
+                return c.getString(c.getColumnIndex(startDate))
+        }
 
 }

@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.TextView
 
 class DatailedActivity : AppCompatActivity() {
+    var db = Database(this)
     var id=-1
     lateinit var nametext:TextView
     lateinit var detailtext:TextView
@@ -70,7 +71,12 @@ class DatailedActivity : AppCompatActivity() {
             totaltext.setText("error")
             starttext.setText("error")
         }else{
-            //TODO-db에서 정보가져와야되는데 모르겠음.
+            nametext.setText(db.getName(id))
+            detailtext.setText(db.getDetail(id))
+            categorytext.setText(db.getCategory(id))
+            streaktext.setText(db.getStart(id))
+            totaltext.setText(db.getTotal(id))
+            starttext.setText(db.getStart(id))
         }
     }
 }

@@ -110,4 +110,5 @@ class EditDetailedActivity : AppCompatActivity() {
             starttext.setText(start)
         }
     }
+
 }
