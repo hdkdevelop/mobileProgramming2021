@@ -1,5 +1,6 @@
 package com.mp2021.dailytodo
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -27,9 +28,9 @@ class DatailedActivity : AppCompatActivity() {
         init()
     }
     private fun init(){
-        var backbtn=findViewById<Button>(R.id.button1)
-        var favorbtn=findViewById<Button>(R.id.button2)
-        var editbtn=findViewById<Button>(R.id.button3)
+        val backBtn=findViewById<Button>(R.id.button1)
+        val favorBtn=findViewById<Button>(R.id.button2)
+        val editBtn=findViewById<Button>(R.id.button3)
         nametext=findViewById(R.id.textView2)
         detailtext=findViewById(R.id.textView4)
         categorytext=findViewById(R.id.textView6)
@@ -37,8 +38,8 @@ class DatailedActivity : AppCompatActivity() {
         totaltext=findViewById(R.id.textView10)
         starttext=findViewById(R.id.textView12)
         inittext()
-        editbtn.setOnClickListener{
-            var intent = Intent(this, EditDetailedActivity::class.java)
+        editBtn.setOnClickListener{
+            val intent = Intent(this, EditDetailedActivity::class.java)
             intent.putExtra("name",nametext.text.toString())
             intent.putExtra("detail",detailtext.text.toString())
             intent.putExtra("category",categorytext.text.toString())
@@ -48,10 +49,10 @@ class DatailedActivity : AppCompatActivity() {
             intent.putExtra("id",id)
             startActivity(intent)
         }
-        backbtn.setOnClickListener{
+        backBtn.setOnClickListener{
             onBackPressed()
         }
-        favorbtn.setOnClickListener{
+        favorBtn.setOnClickListener{
             //Todo-즐겨찾기 난감하네
         }
     }
@@ -59,7 +60,8 @@ class DatailedActivity : AppCompatActivity() {
         super.onResume()
         inittext()
     }
-    private fun inittext{
+    @SuppressLint("SetTextI18n")
+    private fun inittext(){
         if(id==-1){
             nametext.setText("error")
             detailtext.setText("error")

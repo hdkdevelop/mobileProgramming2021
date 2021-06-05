@@ -1,5 +1,6 @@
 package com.mp2021.dailytodo
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -39,8 +40,8 @@ class EditDetailedActivity : AppCompatActivity() {
         }else{
             detail="error"
         }
-        if (intent.hasExtra("categoty")){
-            category = intent.getStringExtra("categoty").toString()
+        if (intent.hasExtra("category")){
+            category = intent.getStringExtra("category").toString()
         }else{
             category="error"
         }
@@ -62,19 +63,19 @@ class EditDetailedActivity : AppCompatActivity() {
         init()
     }
     private fun init(){
-        var backbtn=findViewById<Button>(R.id.button4)
-        var cancelbtn=findViewById<Button>(R.id.button5)
-        var editbtn=findViewById<Button>(R.id.button6)
+        val backBtn=findViewById<Button>(R.id.button4)
+        val cancelBtn=findViewById<Button>(R.id.button5)
+        val editBtn=findViewById<Button>(R.id.button6)
         nametext=findViewById(R.id.textView2)
         detailtext=findViewById(R.id.textView4)
         categorytext=findViewById(R.id.textView6)
         streaktext=findViewById(R.id.textView8)
         totaltext=findViewById(R.id.textView10)
         starttext=findViewById(R.id.textView12)
-        inittext()
-        editbtn.setOnClickListener{
-            var intent = Intent(this, EditDetailedActivity::class.java)
-            /*intent.putExtra("name",nametext.text)
+        initText()
+        editBtn.setOnClickListener{
+            /*var intent = Intent(this, EditDetailedActivity::class.java)
+            intent.putExtra("name",nametext.text)
             intent.putExtra("detail",detailtext.text)
             intent.putExtra("category",categorytext.text)
             intent.putExtra("streak",streaktext.text)
@@ -84,18 +85,15 @@ class EditDetailedActivity : AppCompatActivity() {
             //TODO 위에껄 액티비티가아니라 데이터베이스로 보내야됨.
             onBackPressed()
         }
-        backbtn.setOnClickListener{
+        backBtn.setOnClickListener{
             onBackPressed()
         }
-        cancelbtn.setOnClickListener{
+        cancelBtn.setOnClickListener{
             onBackPressed()
         }
     }
-    override fun onResume() {
-        super.onResume()
-        inittext()
-    }
-    private fun inittext{
+    @SuppressLint("SetTextI18n")
+    private fun initText(){
         if(id==-1){
             nametext.setText("error")
             detailtext.setText("error")
