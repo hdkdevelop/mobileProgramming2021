@@ -86,7 +86,8 @@ class AddhabitActivity : AppCompatActivity() {
                 if(habitname == "" || habitdetail == "" || habitcategory == ""){
                     Toast.makeText(this@AddhabitActivity, "모든 항목을 입력해주세요.", Toast.LENGTH_SHORT).show()
                 }else{
-                    val habitset = Habit(1, habitname, 1, currentDateTime, habitdetail, false, habitcategory)
+                    val habitset = Habit(1, habitname, habitdetail, currentDateTime, 0, false, false, habitcategory, currentDateTime)
+                    //habitid는 auto increment
                     val result = DB.insertHabit(habitset)
                     if(result){
                         Toast.makeText(this@AddhabitActivity, "습관 추가 성공", Toast.LENGTH_SHORT).show()
@@ -95,6 +96,7 @@ class AddhabitActivity : AppCompatActivity() {
                     }
                 }
                 clearEditText()
+                finish()
                 //이전화면으로
             }
 

@@ -5,11 +5,13 @@ import android.os.Bundle
 import android.view.Window
 import android.widget.Toast
 import androidx.appcompat.app.ActionBar
+import com.mp2021.dailytodo.data.Category
 import com.mp2021.dailytodo.databinding.ActivityAddcateBinding
 
 class AddcateActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityAddcateBinding
+    lateinit var DB: Database
 
     override fun onCreate(savedInstanceState: Bundle?) {
         requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -26,6 +28,8 @@ class AddcateActivity : AppCompatActivity() {
 
     private fun init() {
 
+        DB = Database(this)
+
         binding.apply {
 
             catename.text.clear()
@@ -41,8 +45,15 @@ class AddcateActivity : AppCompatActivity() {
                     Toast.makeText(this@AddcateActivity, "모든 항목을 입력해주세요.", Toast.LENGTH_SHORT).show()
                 }else{
                     //카테고리추가
+                    val categoryset = Category(1, catename, catedetail)
+                    val result = DB.insertCate(categoryset)
+                    if(result)
+                        Toast.makeText(this@AddcateActivity, "카테고리 추가 성공", Toast.LENGTH_SHORT).show()
+                    else
+                        Toast.makeText(this@AddcateActivity, "카테고리 추가 실패", Toast.LENGTH_SHORT).show()
                 }
                 clearEditText()
+                finish()
                 //이전화면으로
             }
             btcancel.setOnClickListener {

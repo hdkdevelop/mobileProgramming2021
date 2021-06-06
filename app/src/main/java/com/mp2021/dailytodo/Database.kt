@@ -5,6 +5,7 @@ import android.content.ContentValues
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import com.mp2021.dailytodo.data.Category
 import com.mp2021.dailytodo.data.Habit
 import java.util.*
 import kotlin.collections.ArrayList
@@ -13,18 +14,20 @@ class Database(context:Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_VE
         companion object {
                 const val DB_NAME = "_.db"
                 const val DB_VERSION = 1
+                val tableName="product"//테이블 이름
                 val habitid= "habit_id"//습관 id
                 val title="title"//습관 이름
-                val tableName="product"//테이블 이름
-                val tableName2="catagory"//테이블 이름
-                val categoryId= "catagory_id"//카테고리id
                 val startDate= "date"//시작날짜.
                 var detail="habit_detail"//습관 설명.
                 val favored="favored"//0과1로 favor했는지 확인.
                 val streak="streak"//연속 완료 일 수.
-                val categoryname="catagory_name"//카테고리 이름.
+                val category="category"//습관이 속한 카테고리 이름
                 val completed="completed"//완료했는지
                 val completeddate="completed_date"//완료한 총 일 수.
+                val tableName2="catagory"//테이블 이름
+                val categoryId= "catagory_id"//카테고리id
+                val categoryname="catagory_name"//카테고리 이름.
+                val categorydetail="category_detail"//카테고리 설명... 근데 이거 어따 쓰나요? 카테고리별로 볼 수 있는 화면에서 띄워주기...?
         }
 
         // 디비 필요한부분 각자 추가
@@ -36,12 +39,14 @@ class Database(context:Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_VE
                         "$detail text," +
                         "$startDate text," +
                         "$streak integer," +
-                        "$completed integer" +
-                        "$favored integer" +
+                        "$completed integer," +
+                        "$favored integer," +
+                        "$category text," +
                         "$completeddate integer);"
                 val create_table2="create table if not exists $tableName2(" +
                         "$categoryId integer primary key autoincrement, " +
-                        "$categoryname text);"
+                        "$categoryname text, " +
+                        "$categorydetail text);"
                 db!!.execSQL(create_table2)
                 db.execSQL(create_table)
         }
@@ -73,18 +78,33 @@ class Database(context:Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_VE
 
         fun insertHabit(habit: Habit):Boolean{
                 val values = ContentValues()
-                values.put(habitid, habit.id)
-                values.put(categoryId, habit.categoryId)
+                values.putNull(habitid)
+//              values.put(categoryId, habit.categoryId)
                 values.put(title, habit.title)
-                values.put(startDate, habit.startDate.toString())
                 values.put(detail, habit.detail)
+                values.put(startDate, habit.startDate.toString())
+                values.put(streak, habit.streak)
+                values.put(completed, habit.completed)
                 values.put(favored, habit.favored)
-                values.put(categoryname, habit.catagoryname)
+                values.put(category, habit.catagory)
+                values.putNull(completeddate)
                 val db = writableDatabase
                 val flag = db.insert(tableName, null, values)>0
                 db.close()
                 return flag
         }
+
+        fun insertCate(category: Category):Boolean{
+                val values = ContentValues()
+                values.putNull(categoryId)
+                values.put(categoryname, category.categoryname)
+                values.put(categorydetail, category.categorydetail)
+                val db = writableDatabase
+                val flag = db.insert(tableName2, null, values)>0
+                db.close()
+                return flag
+        }
+
         //즐찾 확인.(메인확인에 보여주기 위해.)
         fun getFavored():ArrayList<MyHabit>{
                 val AL = ArrayList<MyHabit>()
