@@ -33,6 +33,10 @@ class MainActivity : AppCompatActivity() {
                 var intent = Intent(this, AddcateActivity::class.java)
                 startActivity(intent)
             }
+            R.id.statistic -> {
+                var intent = Intent(this, StatisticActivity::class.java)
+                startActivity(intent)
+            }
         }
         return super.onOptionsItemSelected(item)
     }

@@ -5,8 +5,11 @@
     tools:ignore="ExtraText">
     <item
         android:id="@+id/addcate"
-        android:title="카테고리 추가" />
+        android:title="@string/menu_category" />
     <item
         android:id="@+id/addact"
-        android:title="습관 추가" />
+        android:title="@string/menu_habit" />
+    <item
+        android:id="@+id/statistic"
+        android:title="@string/menu_statistic" />
 </menu>

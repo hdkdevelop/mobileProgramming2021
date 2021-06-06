@@ -9,4 +9,7 @@
     <string name="period_year">최근 1년</string>
     <string name="month">월</string>
     <string name="day">일</string>
+    <string name="menu_category">카테고리 추가</string>
+    <string name="menu_habit">습관 추가</string>
+    <string name="menu_statistic">통계</string>
 </resources>
