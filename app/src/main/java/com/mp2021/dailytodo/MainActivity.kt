@@ -5,8 +5,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
@@ -24,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         menuInflater.inflate(R.menu.menu_main, menu)
         return true
     }
-//Todo 메뉴바가 제대로 안나오는 부분 확인해봐야함.
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.addact -> {
@@ -35,7 +33,6 @@ class MainActivity : AppCompatActivity() {
                 var intent = Intent(this, AddcateActivity::class.java)
                 startActivity(intent)
             }
-            //TODO 이름 알게되서 완성.
         }
         return super.onOptionsItemSelected(item)
     }
