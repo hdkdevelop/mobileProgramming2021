@@ -86,7 +86,7 @@ class AddhabitActivity : AppCompatActivity() {
                 if(habitname == "" || habitdetail == "" || habitcategory == ""){
                     Toast.makeText(this@AddhabitActivity, "모든 항목을 입력해주세요.", Toast.LENGTH_SHORT).show()
                 }else{
-                    val habitset = Habit(1, habitname, habitdetail, currentDateTime, 0, false, false, habitcategory, currentDateTime)
+                    val habitset = Habit(1, habitname, habitdetail, currentDateTime, 0, false, false, habitcategory, 0)
                     //habitid는 auto increment
                     val result = DB.insertHabit(habitset)
                     if(result){
