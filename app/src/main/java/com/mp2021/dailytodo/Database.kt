@@ -27,7 +27,6 @@ class Database(context:Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_VE
                 val tableName2="catagory"//테이블 이름
                 val categoryId= "catagory_id"//카테고리id
                 val categoryname="catagory_name"//카테고리 이름.
-                val categorydetail="category_detail"//카테고리 설명... 근데 이거 어따 쓰나요? 카테고리별로 볼 수 있는 화면에서 띄워주기...?
         }
 
         // 디비 필요한부분 각자 추가
@@ -45,8 +44,8 @@ class Database(context:Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_VE
                         "$completeddate integer);"
                 val create_table2="create table if not exists $tableName2(" +
                         "$categoryId integer primary key autoincrement, " +
-                        "$categoryname text, " +
-                        "$categorydetail text);"
+                        "$categoryname text);"
+
                 db!!.execSQL(create_table2)
                 db.execSQL(create_table)
         }
@@ -98,7 +97,6 @@ class Database(context:Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_VE
                 val values = ContentValues()
                 values.putNull(categoryId)
                 values.put(categoryname, category.categoryname)
-                values.put(categorydetail, category.categorydetail)
                 val db = writableDatabase
                 val flag = db.insert(tableName2, null, values)>0
                 db.close()

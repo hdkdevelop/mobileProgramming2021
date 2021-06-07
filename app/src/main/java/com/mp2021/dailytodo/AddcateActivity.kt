@@ -33,19 +33,18 @@ class AddcateActivity : AppCompatActivity() {
         binding.apply {
 
             catename.text.clear()
-            catedetail.text.clear()
+
 
             btadd.setOnClickListener {
                 //모든 내용 null이 아닐때만 카테고리 추가하고 습관목록화면으로 가기
                 val catename = catename.text.toString()
-                val catedetail = catedetail.text.toString()
 
 
-                if(catename == "" || catedetail == "") {
-                    Toast.makeText(this@AddcateActivity, "모든 항목을 입력해주세요.", Toast.LENGTH_SHORT).show()
+                if(catename == "") {
+                    Toast.makeText(this@AddcateActivity, "카테고리 이름을 입력해주세요.", Toast.LENGTH_SHORT).show()
                 }else{
                     //카테고리추가
-                    val categoryset = Category(1, catename, catedetail)
+                    val categoryset = Category(1, catename)
                     val result = DB.insertCate(categoryset)
                     if(result)
                         Toast.makeText(this@AddcateActivity, "카테고리 추가 성공", Toast.LENGTH_SHORT).show()
@@ -69,7 +68,6 @@ class AddcateActivity : AppCompatActivity() {
     fun clearEditText(){
         binding.apply {
             catename.text.clear()
-            catedetail.text.clear()
         }
     }
 
