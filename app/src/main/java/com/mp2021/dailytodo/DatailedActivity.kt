@@ -75,7 +75,8 @@ class DatailedActivity : AppCompatActivity() {
             detailtext.setText(db.getDetail(id))
             categorytext.setText(db.getCategory(id))
             streaktext.setText(db.getStreak(id))
-            totaltext.setText(db.getTotal(id))
+            //TODO totaltext.setText(db.getTotal(id))
+            totaltext.setText("error")
             starttext.setText(db.getStart(id))
         }
     }

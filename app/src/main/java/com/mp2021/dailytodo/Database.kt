@@ -105,21 +105,19 @@ class Database(context:Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_VE
 
         //즐찾 확인.(메인확인에 보여주기 위해.)
         fun getFavored():ArrayList<MyHabit>{
-                val AL = ArrayList<MyHabit>()
+                var AL = ArrayList<MyHabit>()
+                var AL2 :MyHabit
                 val database=readableDatabase
-                val query = "select * from $tableName where $favored ='1';"
+                val query = "select * from $tableName;"
                 val c = database.rawQuery(query,null)
-                var attrcount = c.columnCount
-                if(attrcount>3)
-                        attrcount=3
-                for (i in 0 until attrcount) {
-                        val habit_detail = c.getString(c.getColumnIndex(detail))
-                        val habit_name = c.getString(c.getColumnIndex(title))
-                        val id = c.getLong(c.getColumnIndex(habitid))
-                        val start_date = c.getString(c.getColumnIndex(startDate))
-                        val streak = c.getInt(c.getColumnIndex(streak))
-                        val completed2 = c.getInt(c.getColumnIndex(completed))
-                        AL.add(MyHabit(habit_name,start_date,streak,habit_detail,id, completed2))
+                while(c.moveToNext()){
+                        AL2= MyHabit(c.getString(c.getColumnIndex(title)),
+                                c.getString(c.getColumnIndex(startDate)),
+                                c.getInt(c.getColumnIndex(streak)),
+                                c.getString(c.getColumnIndex(detail)),
+                                c.getLong(c.getColumnIndex(habitid)),
+                                c.getInt(c.getColumnIndex(completed)))
+                        AL.add(AL2)
                 }
                 c.close()
                 database.close()
@@ -129,33 +127,46 @@ class Database(context:Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_VE
                 val database=readableDatabase
                 val query = "select * from $tableName where $habitid ='$id';"
                 val c = database.rawQuery(query,null)
+                var str = ""
+                while(c.moveToNext())
+                        str= c.getString(c.getColumnIndex(title))
                 database.close()
                 c.close()
-                return c.getString(c.getColumnIndex(title))
+                return str
+
         }
         fun getDetail(id:Int):String{
                 val database=readableDatabase
                 val query = "select * from $tableName where $habitid ='$id';"
                 val c = database.rawQuery(query,null)
+                var str = ""
+                while(c.moveToNext())
+                        str= c.getString(c.getColumnIndex(detail))
                 database.close()
                 c.close()
-                return c.getString(c.getColumnIndex(detail))
+                return str
         }
         fun getCategory(id:Int):String{
                 val database=readableDatabase
                 val query = "select * from $tableName where $habitid ='$id';"
                 val c = database.rawQuery(query,null)
-                c.close()
+                var str = ""
+                while(c.moveToNext())
+                        str= c.getString(c.getColumnIndex(category))
                 database.close()
-                return c.getString(c.getColumnIndex(categoryname))
+                c.close()
+                return str
         }
         fun getStreak(id:Int):String{
                 val database=readableDatabase
                 val query = "select * from $tableName where $habitid ='$id';"
                 val c = database.rawQuery(query,null)
-                c.close()
+                var str = ""
+                while(c.moveToNext())
+                        str= c.getInt(c.getColumnIndex(streak)).toString()
                 database.close()
-                return c.getInt(c.getColumnIndex(streak)).toString()
+                c.close()
+                return str
         }
         fun getTotal(id:Int):String{
                 val database=readableDatabase
@@ -163,15 +174,23 @@ class Database(context:Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_VE
                 val c = database.rawQuery(query,null)
                 c.close()
                 database.close()
-                return c.getInt(c.getColumnIndex(completeddate)).toString()
+                var str = ""
+                while(c.moveToNext())
+                        str= c.getInt(c.getColumnIndex(completeddate)).toString()
+                database.close()
+                c.close()
+                return str
         }
         fun getStart(id:Int):String{
                 val database=this.readableDatabase
                 val query = "select * from $tableName where $habitid ='$id';"
                 val c = database.rawQuery(query,null)
-                c.close()
+                var str = ""
+                while(c.moveToNext())
+                        str= c.getString(c.getColumnIndex(startDate))
                 database.close()
-                return c.getString(c.getColumnIndex(startDate))
+                c.close()
+                return str
         }
         fun updateHabit(id:Int, name:String, detail2:String):Boolean{
                 val strsql = "select * frota$tableName where $habitid='$id';"

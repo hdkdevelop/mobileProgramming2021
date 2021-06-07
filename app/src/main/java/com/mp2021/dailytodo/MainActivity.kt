@@ -6,9 +6,13 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 class MainActivity : AppCompatActivity() {
     lateinit var adapter: MyHabitAdapter
+    lateinit var recyclerView: RecyclerView
+    lateinit var DB: Database
     var data = ArrayList<MyHabit>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,20 +53,30 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun init(){
+        recyclerView=findViewById<RecyclerView>(R.id.recyclerView_main)
+        recyclerView.layoutManager= LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false)
+        DB = Database(this)
         initData()
         adapter= MyHabitAdapter(data)
         adapter.itemClickListener = object : MyHabitAdapter.OnItemClickListener{
             override fun OnItemClick(holder: MyHabitAdapter.ViewHolder, view: View, data: MyHabit, position: Int) {
-                var i = Intent(this@MainActivity, AddhabitActivity::class.java)
-                i.putExtra("id",data.id)
+                var i = Intent(this@MainActivity, DatailedActivity::class.java)
+                i.putExtra("id",data.id.toInt())
                 startActivity(i)
             }
         }
+        recyclerView.adapter=adapter
         //db에서 정보들 받아와야함.
         //4가지 정보를 initData에서 받은뒤에, adapter초기화해주고, 3가지만 받는 규칙 제정해야함.- 그냥 EditDetailed에서 3개이상이면 작동하지 않도록 제한걸면될듯!
         //즐겨찾기는 시작날짜와 이름으로 생각중.
     }
     private fun initData(){
-        //db에서 정보 받아와야함
+        data.clear()
+            var favored = DB.getFavored()
+        if(favored==null)
+            data.add(MyHabit("12.1","12.2",3,"13",1.2.toLong(),0))
+        else
+            data=favored
+
     }
 }
