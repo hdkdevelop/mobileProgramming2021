@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -63,6 +64,11 @@ class MainActivity : AppCompatActivity() {
                 var i = Intent(this@MainActivity, DatailedActivity::class.java)
                 i.putExtra("id",data.id.toInt())
                 startActivity(i)
+            }
+        }
+        adapter.itemLongClickListener = object : MyHabitAdapter.OnItemLongClickListener{
+            override fun OnItemLongClick(holder: MyHabitAdapter.ViewHolder, view: View, data: MyHabit, position: Int) {
+                Toast.makeText(this@MainActivity, "Long click", Toast.LENGTH_SHORT).show()
             }
         }
         recyclerView.adapter=adapter

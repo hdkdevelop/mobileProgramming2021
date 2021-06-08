@@ -10,8 +10,12 @@ class MyHabitAdapter(val items:ArrayList<MyHabit>):RecyclerView.Adapter<MyHabitA
     interface OnItemClickListener{
         fun OnItemClick(holder: ViewHolder,view: View,data: MyHabit,position: Int)
     }
+    interface OnItemLongClickListener {
+        fun OnItemLongClick(holder: ViewHolder,view: View,data: MyHabit,position: Int)
+    }
     var position: Int=0
     var itemClickListener:OnItemClickListener?=null
+    var itemLongClickListener:OnItemLongClickListener?=null
     override fun getItemViewType(position: Int): Int {
         return position
     }
@@ -23,6 +27,10 @@ class MyHabitAdapter(val items:ArrayList<MyHabit>):RecyclerView.Adapter<MyHabitA
         init{
             itemView.setOnClickListener {
                 itemClickListener?.OnItemClick(this,it,items[adapterPosition],adapterPosition)
+            }
+            itemView.setOnLongClickListener {
+                itemLongClickListener?.OnItemLongClick(this,it,items[adapterPosition],adapterPosition)
+                true;
             }
         }
     }
