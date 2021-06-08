@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mp2021.dailytodo.data.HabitHistory
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -60,10 +61,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun init() {
         val instance = Calendar.getInstance()
-        val year = instance.get(Calendar.YEAR).toString()
-        val month = instance.get((Calendar.MONTH) + 1).toString()
-        val date = instance.get(Calendar.DATE).toString()
-        final_date = "$year-$month-$date"
+        val formatter = SimpleDateFormat("yyyy-MM-dd")
+        final_date = formatter.format(instance.time)
         recyclerView = findViewById<RecyclerView>(R.id.recyclerView_main)
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         DB = Database(this)
