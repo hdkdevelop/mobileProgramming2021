@@ -48,11 +48,7 @@ class MyHabitAdapter(val items:ArrayList<MyHabit>):RecyclerView.Adapter<MyHabitA
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.row, parent, false)
-        /*if(DB.isHistory(items[position].id.toInt(),final_date)){
-            items[position].completed=1
-        }else{
-            items[position].completed=0
-        }*/
+
         return ViewHolder(view)
     }
 

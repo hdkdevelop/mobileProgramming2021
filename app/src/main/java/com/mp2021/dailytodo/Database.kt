@@ -52,7 +52,7 @@ class Database(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_V
                         "$categoryname text);"
                 val create_table3="create table if not exists $tableName3(" +
                         "$historyid integer primary key autoincrement, " +
-                        "$habitid text," +
+                        "$habitid integer," +
                         "$date text);"
 
                 db!!.execSQL(create_table2)
@@ -96,7 +96,7 @@ class Database(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_V
                 values.put(completed, habit.completed)
                 values.put(favored, habit.favored)
                 values.put(category, habit.catagory)
-                values.putNull(completeddate)
+                values.put(completeddate, habit.completeddate)
                 val db = writableDatabase
                 val flag = db.insert(tableName, null, values)>0
                 db.close()
@@ -106,7 +106,7 @@ class Database(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_V
         fun insertHabitHist(habitHistory: HabitHistory){
                 val values = ContentValues()
                 values.putNull(historyid)
-                values.put(habitid,habitHistory.habitId.toString())
+                values.put(habitid,habitHistory.habitId)
                 values.put(date, habitHistory.date)
                 val db = writableDatabase
                 db.insert(tableName3,null,values)
@@ -118,7 +118,7 @@ class Database(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_V
         }
         fun isHistory(id2:Int, date2:String):Boolean{
                 val db = readableDatabase
-                val query = "select * from $tableName where $historyid ='$id2' AND $date = '$date2';"
+                val query = "select * from $tableName3 where $habitid ='$id2' AND $date = '$date2';"
                 var flag:Boolean = false
                 val c = db.rawQuery(query,null)
                 flag= c.moveToNext()
@@ -258,6 +258,83 @@ class Database(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_V
                         )
                 }
                 cursor.close()
+                db.close()
+        }
+
+        fun minusStreak(id: Int) {
+                val strsql = "select * from $tableName where $habitid='$id';"
+                val db = writableDatabase
+                val cursor = db.rawQuery(strsql, null)
+                val flag = cursor.moveToFirst()
+                if(flag) {
+                        val values = ContentValues()
+                        val str = cursor.getInt(cursor.getColumnIndex(streak))
+                        values.put(streak, str - 1)
+                        println(str - 1)
+                        values.put(
+                                completeddate,
+                                cursor.getInt(cursor.getColumnIndex(completeddate)) - 1
+                        )
+                        db.update(
+                                tableName, values, "$streak=? AND $completeddate=?", arrayOf(
+                                        cursor.getInt(cursor.getColumnIndex(streak)).toString(),
+                                        cursor.getString(cursor.getColumnIndex(completeddate))
+                                )
+                        )
+                        println("됨")
+                }
+                cursor.close()
+                db.close()
+        }
+
+        fun plusStreak(id: Int) {
+                val strsql = "select * from $tableName where $habitid='$id';"
+                val db = writableDatabase
+                val db2 = readableDatabase
+                val cursor = db.rawQuery(strsql, null)
+                val cursor2 = db2.rawQuery(strsql, null)
+                val values = ContentValues()
+                while(cursor2.moveToNext()){
+                        val str = cursor2.getInt(cursor.getColumnIndex(streak))
+                        values.put(streak, (str + 1).toString())
+                        println(str + 1)
+                }
+                var flag = cursor.moveToFirst()
+                if(flag) {
+                        db.update(
+                                tableName, values, "$streak=?",
+                                arrayOf(
+                                        cursor.getInt(cursor.getColumnIndex(streak)).toString()
+                                )
+                        )
+                        println("+")
+                }
+                cursor2.close()
+                db.close()
+        }
+        fun plusTotal(id: Int) {
+                val strsql = "select * from $tableName where $habitid='$id';"
+                val db = writableDatabase
+                val db2 = readableDatabase
+                val cursor = db.rawQuery(strsql, null)
+                val cursor2 = db2.rawQuery(strsql, null)
+                val values = ContentValues()
+                while(cursor2.moveToNext()){
+                        val str = cursor2.getInt(cursor.getColumnIndex(completeddate))
+                        values.put(completeddate, (str + 1))
+                        println(str + 1)
+                }
+                var flag = cursor.moveToFirst()
+                if(flag) {
+                        db.update(
+                                tableName, values, "$completeddate=?",
+                                arrayOf(
+
+                                )
+                        )
+                        println("+")
+                }
+                cursor2.close()
                 db.close()
         }
 }
