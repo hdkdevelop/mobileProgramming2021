@@ -5,8 +5,11 @@ import android.content.ContentValues
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.util.Log
+import android.widget.Toast
 import com.mp2021.dailytodo.data.Category
 import com.mp2021.dailytodo.data.Habit
+import com.mp2021.dailytodo.data.HabitHistory
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -25,8 +28,11 @@ class Database(context:Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_VE
                 val completed="completed"//완료했는지
                 val completeddate="completed_date"//완료한 총 일 수.
                 val tableName2="catagory"//테이블 이름
-                val categoryId= "catagory_id"//카테고리id
+                val categoryId= "category_id"//카테고리id
                 val categoryname="catagory_name"//카테고리 이름.
+                val tableName3="history"//히스토리 테이블 이름.
+                val historyid="id"//히스토리id
+                val date="date"
         }
 
         // 디비 필요한부분 각자 추가
@@ -45,9 +51,14 @@ class Database(context:Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_VE
                 val create_table2="create table if not exists $tableName2(" +
                         "$categoryId integer primary key autoincrement, " +
                         "$categoryname text);"
+                val create_table3="create table if not exists $tableName3(" +
+                        "$historyid integer primary key autoincrement, " +
+                        "$habitid integer" +
+                        "$date text);"
 
                 db!!.execSQL(create_table2)
                 db.execSQL(create_table)
+                db.execSQL(create_table3)
         }
         override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {}
 
@@ -91,6 +102,20 @@ class Database(context:Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_VE
                 val flag = db.insert(tableName, null, values)>0
                 db.close()
                 return flag
+        }
+
+        fun insertHabitHist(habitHistory: HabitHistory){
+                val values = ContentValues()
+                values.putNull(historyid)
+                values.put(habitid,habitHistory.habitId)
+                values.put(date, habitHistory.date)
+                val db = writableDatabase
+                db.insert(tableName3,null,values)
+        }
+        fun deleteHistory(id2:Int, date2:String) {
+                val db = this.writableDatabase
+                db.delete(tableName3, "$historyid=? AND $date=?", arrayOf(id2.toString(), date2))
+                db.close()
         }
 
         fun insertCate(category: Category):Boolean{
@@ -172,8 +197,6 @@ class Database(context:Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_VE
                 val database=readableDatabase
                 val query = "select * from $tableName where $habitid ='$id';"
                 val c = database.rawQuery(query,null)
-                c.close()
-                database.close()
                 var str = ""
                 while(c.moveToNext())
                         str= c.getInt(c.getColumnIndex(completeddate)).toString()
@@ -193,16 +216,20 @@ class Database(context:Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_VE
                 return str
         }
         fun updateHabit(id:Int, name:String, detail2:String):Boolean{
-                val strsql = "select * frota$tableName where $habitid='$id';"
+                val strsql = "select * from $tableName where $habitid='$id';"
                 val db = writableDatabase
                 val cursor = db.rawQuery(strsql, null)
-                val flag = cursor.count!=0
-                if(flag){
-                        cursor.moveToFirst()
+                val flag = cursor.moveToFirst()
+                if(flag) {
                         val values = ContentValues()
                         values.put(title, name)
                         values.put(detail, detail2)
-                        db.update(tableName,values,"$habitid=?", arrayOf(id.toString()))
+                        db.update(
+                                tableName, values, "$title=? AND $detail=?", arrayOf(
+                                        cursor.getString(cursor.getColumnIndex(title)),
+                                        cursor.getString(cursor.getColumnIndex(detail))
+                                )
+                        )
                 }
                 cursor.close()
                 db.close()

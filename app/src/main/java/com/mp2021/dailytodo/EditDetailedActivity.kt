@@ -67,18 +67,16 @@ class EditDetailedActivity : AppCompatActivity() {
         val backBtn=findViewById<Button>(R.id.button4)
         val cancelBtn=findViewById<Button>(R.id.button5)
         val editBtn=findViewById<Button>(R.id.button6)
-        nametext=findViewById(R.id.textView2)
-        detailtext=findViewById(R.id.textView4)
-        categorytext=findViewById(R.id.textView6)
-        streaktext=findViewById(R.id.textView8)
-        totaltext=findViewById(R.id.textView10)
-        starttext=findViewById(R.id.textView12)
+        nametext=findViewById(R.id.edit2)
+        detailtext=findViewById(R.id.edit4)
+        categorytext=findViewById(R.id.edit6)
+        streaktext=findViewById(R.id.edit8)
+        totaltext=findViewById(R.id.edit10)
+        starttext=findViewById(R.id.edit12)
         initText()
         editBtn.setOnClickListener{
-            db.updateHabit(id,name,detail)
-            Handler().postDelayed({
-            }, 200)
-            onBackPressed()
+            db.updateHabit(id,nametext.text.toString(),detailtext.text.toString())
+
         }
         backBtn.setOnClickListener{
             onBackPressed()
@@ -100,8 +98,8 @@ class EditDetailedActivity : AppCompatActivity() {
             nametext.setText(name)
             detailtext.setText(detail)
             categorytext.setText(category)
-            streaktext.setText(streak)
-            totaltext.setText(total)
+            streaktext.setText(streak.toString())
+            totaltext.setText(total.toString())
             starttext.setText(start)
         }
     }

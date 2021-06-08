@@ -9,11 +9,17 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.mp2021.dailytodo.data.HabitHistory
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.*
+import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
     lateinit var adapter: MyHabitAdapter
     lateinit var recyclerView: RecyclerView
     lateinit var DB: Database
+    var flag=false
     var data = ArrayList<MyHabit>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,6 +60,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun init(){
+        val instance = Calendar.getInstance()
+        val year = instance.get(Calendar.YEAR).toString()
+        val month = instance.get((Calendar.MONTH) + 1).toString()
+        val date = instance.get(Calendar.DATE).toString()
+        val final_date=year+"="+month+"-"+date
         recyclerView=findViewById<RecyclerView>(R.id.recyclerView_main)
         recyclerView.layoutManager= LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false)
         DB = Database(this)
@@ -68,6 +79,14 @@ class MainActivity : AppCompatActivity() {
         }
         adapter.itemLongClickListener = object : MyHabitAdapter.OnItemLongClickListener{
             override fun OnItemLongClick(holder: MyHabitAdapter.ViewHolder, view: View, data: MyHabit, position: Int) {
+                if(adapter.ispainted==false) {
+                    val hh = HabitHistory(1, data.id, final_date)
+                    DB.insertHabitHist(hh)
+                    adapter.ispainted=true
+                }else{
+                    DB.deleteHistory(this.id, final_date)
+                    adapter.ispainted=false
+                }
                 Toast.makeText(this@MainActivity, "Long click", Toast.LENGTH_SHORT).show()
             }
         }
@@ -77,10 +96,12 @@ class MainActivity : AppCompatActivity() {
         //즐겨찾기는 시작날짜와 이름으로 생각중.
     }
     private fun initData(){
+        flag=false
         data.clear()
             var favored = DB.getFavored()
         if(favored==null)
             data.add(MyHabit("12.1","12.2",3,"13",1.2.toLong(),0))
+
         else
             data=favored
 

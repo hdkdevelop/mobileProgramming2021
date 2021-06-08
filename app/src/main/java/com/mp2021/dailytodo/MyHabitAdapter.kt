@@ -1,12 +1,15 @@
 package com.mp2021.dailytodo
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 class MyHabitAdapter(val items:ArrayList<MyHabit>):RecyclerView.Adapter<MyHabitAdapter.ViewHolder>(){
+    var ispainted = false
     interface OnItemClickListener{
         fun OnItemClick(holder: ViewHolder,view: View,data: MyHabit,position: Int)
     }
@@ -24,6 +27,7 @@ class MyHabitAdapter(val items:ArrayList<MyHabit>):RecyclerView.Adapter<MyHabitA
         val textView2:TextView = itemView.findViewById(R.id.streak)
         val textView3:TextView = itemView.findViewById(R.id.habit_detail)
         val textView4:TextView = itemView.findViewById(R.id.start_day)
+        val color:LinearLayout = itemView.findViewById(R.id.colored)
         init{
             itemView.setOnClickListener {
                 itemClickListener?.OnItemClick(this,it,items[adapterPosition],adapterPosition)
@@ -62,5 +66,10 @@ class MyHabitAdapter(val items:ArrayList<MyHabit>):RecyclerView.Adapter<MyHabitA
         holder.textView2.text = items[position].streak.toString()
         holder.textView3.text = items[position].habit_detail
         holder.textView4.text = items[position].start_date
+        if(ispainted==true){
+            holder.color.setBackgroundColor(Color.parseColor("#a7dbdb"));
+        }else{
+            holder.color.setBackgroundColor(Color.WHITE);
+        }
     }
 }
