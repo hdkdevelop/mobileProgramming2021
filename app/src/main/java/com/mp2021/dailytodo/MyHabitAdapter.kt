@@ -1,5 +1,6 @@
 package com.mp2021.dailytodo
 
+import android.content.Context
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
@@ -7,9 +8,15 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import java.util.*
+import kotlin.collections.ArrayList
 
 class MyHabitAdapter(val items:ArrayList<MyHabit>):RecyclerView.Adapter<MyHabitAdapter.ViewHolder>(){
-    var ispainted = false
+    val instance = Calendar.getInstance()
+    val year = instance.get(Calendar.YEAR).toString()
+    val month = instance.get((Calendar.MONTH) + 1).toString()
+    val date = instance.get(Calendar.DATE).toString()
+    val final_date=year+"="+month+"-"+date
     interface OnItemClickListener{
         fun OnItemClick(holder: ViewHolder,view: View,data: MyHabit,position: Int)
     }
@@ -41,6 +48,11 @@ class MyHabitAdapter(val items:ArrayList<MyHabit>):RecyclerView.Adapter<MyHabitA
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.row, parent, false)
+        /*if(DB.isHistory(items[position].id.toInt(),final_date)){
+            items[position].completed=1
+        }else{
+            items[position].completed=0
+        }*/
         return ViewHolder(view)
     }
 
@@ -66,7 +78,7 @@ class MyHabitAdapter(val items:ArrayList<MyHabit>):RecyclerView.Adapter<MyHabitA
         holder.textView2.text = items[position].streak.toString()
         holder.textView3.text = items[position].habit_detail
         holder.textView4.text = items[position].start_date
-        if(ispainted==true){
+        if(items[position].completed==1){
             holder.color.setBackgroundColor(Color.parseColor("#a7dbdb"));
         }else{
             holder.color.setBackgroundColor(Color.WHITE);

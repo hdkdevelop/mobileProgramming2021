@@ -2,18 +2,17 @@ package com.mp2021.dailytodo;
 
 
 import android.content.ContentValues
-import android.content.Context;
+import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import android.util.Log
-import android.widget.Toast
 import com.mp2021.dailytodo.data.Category
 import com.mp2021.dailytodo.data.Habit
 import com.mp2021.dailytodo.data.HabitHistory
 import java.util.*
 import kotlin.collections.ArrayList
 
-class Database(context:Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_VERSION) {
+class Database(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_VERSION) {
+
         companion object {
                 const val DB_NAME = "_.db"
                 const val DB_VERSION = 1
@@ -32,7 +31,7 @@ class Database(context:Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_VE
                 val categoryname="catagory_name"//카테고리 이름.
                 val tableName3="history"//히스토리 테이블 이름.
                 val historyid="id"//히스토리id
-                val date="date"
+                val date="date_history"
         }
 
         // 디비 필요한부분 각자 추가
@@ -53,7 +52,7 @@ class Database(context:Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_VE
                         "$categoryname text);"
                 val create_table3="create table if not exists $tableName3(" +
                         "$historyid integer primary key autoincrement, " +
-                        "$habitid integer" +
+                        "$habitid text," +
                         "$date text);"
 
                 db!!.execSQL(create_table2)
@@ -107,17 +106,26 @@ class Database(context:Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_VE
         fun insertHabitHist(habitHistory: HabitHistory){
                 val values = ContentValues()
                 values.putNull(historyid)
-                values.put(habitid,habitHistory.habitId)
+                values.put(habitid,habitHistory.habitId.toString())
                 values.put(date, habitHistory.date)
                 val db = writableDatabase
                 db.insert(tableName3,null,values)
         }
         fun deleteHistory(id2:Int, date2:String) {
                 val db = this.writableDatabase
-                db.delete(tableName3, "$historyid=? AND $date=?", arrayOf(id2.toString(), date2))
+                db.delete(tableName3, "$habitid=? AND $date=?", arrayOf(id2.toString(), date2))
                 db.close()
         }
-
+        fun isHistory(id2:Int, date2:String):Boolean{
+                val db = readableDatabase
+                val query = "select * from $tableName where $historyid ='$id2' AND $date = '$date2';"
+                var flag:Boolean = false
+                val c = db.rawQuery(query,null)
+                flag= c.moveToNext()
+                c.close()
+                db.close()
+                return flag
+        }
         fun insertCate(category: Category):Boolean{
                 val values = ContentValues()
                 values.putNull(categoryId)
@@ -234,5 +242,22 @@ class Database(context:Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_VE
                 cursor.close()
                 db.close()
                 return flag
+        }
+        fun updateCompleted(id:Int,completed2:Int){
+                val strsql = "select * from $tableName where $habitid='$id';"
+                val db = writableDatabase
+                val cursor = db.rawQuery(strsql, null)
+                val flag = cursor.moveToFirst()
+                if(flag) {
+                        val values = ContentValues()
+                        values.put(completed,completed2)
+                        db.update(
+                                tableName, values, "$completed=?", arrayOf(
+                                        cursor.getString(cursor.getColumnIndex(completed))
+                                )
+                        )
+                }
+                cursor.close()
+                db.close()
         }
 }

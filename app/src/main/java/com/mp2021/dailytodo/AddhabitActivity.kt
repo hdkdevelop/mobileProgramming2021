@@ -1,7 +1,6 @@
 package com.mp2021.dailytodo
 
 import android.R
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -12,7 +11,6 @@ import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import com.mp2021.dailytodo.data.Habit
 import com.mp2021.dailytodo.databinding.ActivityAddhabitBinding
-import java.text.SimpleDateFormat
 import java.util.*
 
 class AddhabitActivity : AppCompatActivity() {
