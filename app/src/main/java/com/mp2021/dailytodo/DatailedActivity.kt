@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.Window
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 
 class DatailedActivity : AppCompatActivity() {
     var db = Database(this)
@@ -30,7 +31,7 @@ class DatailedActivity : AppCompatActivity() {
     }
     private fun init(){
         val backBtn=findViewById<Button>(R.id.button1)
-        val favorBtn=findViewById<Button>(R.id.button2)
+        val favorBtn=findViewById<Button>(R.id.favorbtn)
         val editBtn=findViewById<Button>(R.id.button3)
         nametext=findViewById(R.id.textView2)
         detailtext=findViewById(R.id.textView4)
@@ -54,7 +55,7 @@ class DatailedActivity : AppCompatActivity() {
             onBackPressed()
         }
         favorBtn.setOnClickListener{
-            //Todo-즐겨찾기 난감하네
+            Toast.makeText(this,"미구현기능입니다",Toast.LENGTH_SHORT).show()
         }
     }
     override fun onResume() {
