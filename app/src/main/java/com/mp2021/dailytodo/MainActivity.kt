@@ -64,10 +64,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun init() {
         val instance = Calendar.getInstance()
-        val year = instance.get(Calendar.YEAR).toString()
-        val month = instance.get((Calendar.MONTH) + 1).toString()
-        val date = instance.get(Calendar.DATE).toString()
-        final_date = "$year-$month-$date"
+        val formatter = SimpleDateFormat("yyyy-MM-dd")
+        final_date = formatter.format(instance.time)
         val tz = TimeZone.getTimeZone("Asia/Seoul")
         val gc = GregorianCalendar(tz)
         var hour= gc.get(GregorianCalendar.HOUR).toString()
