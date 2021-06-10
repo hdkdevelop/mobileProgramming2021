@@ -20,7 +20,7 @@
 
     <TextView
         android:id="@+id/date_text"
-        android:layout_width="127dp"
+        android:layout_width="243dp"
         android:layout_height="52dp"
         android:layout_marginStart="52dp"
         android:layout_marginTop="60dp"

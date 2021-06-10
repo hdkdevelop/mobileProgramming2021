@@ -5,11 +5,14 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mp2021.dailytodo.data.HabitHistory
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -64,6 +67,21 @@ class MainActivity : AppCompatActivity() {
         val month = instance.get((Calendar.MONTH) + 1).toString()
         val date = instance.get(Calendar.DATE).toString()
         final_date = "$year-$month-$date"
+        val tz = TimeZone.getTimeZone("Asia/Seoul")
+        val gc = GregorianCalendar(tz)
+        var hour= gc.get(GregorianCalendar.HOUR).toString()
+        if(hour.toInt()<10)
+            hour = "0$hour"
+        var min = gc.get(GregorianCalendar.MINUTE).toString()
+        if(min.toInt()<10)
+            min = "0$min"
+        var time = hour+":"+min
+
+
+        val dateText = findViewById<TextView>(R.id.date_text)
+        val timeText = findViewById<TextView>(R.id.date_text2)
+        dateText.setText(final_date)
+        timeText.setText(time)
         recyclerView = findViewById<RecyclerView>(R.id.recyclerView_main)
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         DB = Database(this)
