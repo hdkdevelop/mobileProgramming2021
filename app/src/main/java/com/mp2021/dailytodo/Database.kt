@@ -361,7 +361,7 @@ class Database(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_V
                         db.update(
                                 TABLE_HABIT, values, "$completeddate=?",
                                 arrayOf(
-
+                                        cursor.getInt(cursor.getColumnIndex(completeddate)).toString()
                                 )
                         )
                         println("+")
