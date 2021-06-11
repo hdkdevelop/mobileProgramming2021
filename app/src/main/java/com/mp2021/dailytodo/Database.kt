@@ -98,7 +98,10 @@ class Database(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_V
                 val dateStringToday = formatter.format(calendar.time)
                 calendar.add(Calendar.DATE, -daysAgo)
                 val dateString = formatter.format(calendar.time)
-                val query = "select count(*), $category from $TABLE_HABIT where $startDate >= \"$dateString\" and $startDate <= \"$dateStringToday\" group by $category"
+                val query = "select count(*), $category from $TABLE_HISTORY " +
+                        "join $TABLE_HABIT on $TABLE_HISTORY.$habitid = $TABLE_HABIT.$habitid " +
+                        "where $TABLE_HISTORY.$date >= \"$dateString\" and $TABLE_HISTORY.$date <= \"$dateStringToday\" " +
+                        "group by $TABLE_HABIT.$category"
                 val database = this.readableDatabase
                 val c = database.rawQuery(query,null)
                 val queryResults = ArrayList<Pair<String, Int>>()
