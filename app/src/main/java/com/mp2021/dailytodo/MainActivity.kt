@@ -124,7 +124,6 @@ class MainActivity : AppCompatActivity() {
                     }
                     adapter.onBindViewHolder(holder,position)
                 }
-                Toast.makeText(this@MainActivity, "Long click", Toast.LENGTH_SHORT).show()
             }
         }
         recyclerView.adapter = adapter
