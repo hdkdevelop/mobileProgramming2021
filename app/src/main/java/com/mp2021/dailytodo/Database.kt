@@ -372,4 +372,20 @@ class Database(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_V
                 cursor2.close()
                 db.close()
         }
+
+        fun getCategoryName():ArrayList<String>{
+                val database=readableDatabase
+                val query = "select * from $TABLE_CATEGORY;"
+                val c = database.rawQuery(query,null)
+                var name : ArrayList<String> = ArrayList()
+                var str = ""
+                while(c.moveToNext()) {
+                        str = c.getString(c.getColumnIndex(categoryname))
+                        name.add(str)
+                }
+                database.close()
+                c.close()
+                return name
+        }
+
 }
