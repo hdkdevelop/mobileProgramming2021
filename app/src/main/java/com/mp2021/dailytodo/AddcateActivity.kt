@@ -50,9 +50,10 @@ class AddcateActivity : AppCompatActivity() {
                         Toast.makeText(this@AddcateActivity, "카테고리 추가 성공", Toast.LENGTH_SHORT).show()
                     else
                         Toast.makeText(this@AddcateActivity, "카테고리 추가 실패", Toast.LENGTH_SHORT).show()
+                    clearEditText()
+                    finish()
                 }
-                clearEditText()
-                finish()
+
                 //이전화면으로
             }
             btcancel.setOnClickListener {
