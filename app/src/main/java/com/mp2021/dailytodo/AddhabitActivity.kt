@@ -12,6 +12,7 @@ import androidx.appcompat.app.ActionBar
 import com.mp2021.dailytodo.data.Habit
 import com.mp2021.dailytodo.databinding.ActivityAddhabitBinding
 import java.util.*
+import kotlin.collections.ArrayList
 
 class AddhabitActivity : AppCompatActivity() {
 
@@ -33,17 +34,14 @@ class AddhabitActivity : AppCompatActivity() {
     }
 
     private fun initSpinner() {
-        val adapter = ArrayAdapter<String>(this, R.layout.simple_spinner_dropdown_item,ArrayList<String>())
-        //일단 추가
-        adapter.add("카테고리1")
-        adapter.add("카테고리2")
-        adapter.add("카테고리3")
+        val CateArray = DB.getCategoryName()
+        val adapter = ArrayAdapter<String>(this, R.layout.simple_spinner_dropdown_item,CateArray)
         binding.apply {
             habitcatespinner.adapter = adapter
             habitcatespinner.setSelection(0)
             habitcatespinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onNothingSelected(parent: AdapterView<*>?) {
-                    TODO("Not yet implemented")
+
                 }
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                     when (position) {
@@ -62,11 +60,6 @@ class AddhabitActivity : AppCompatActivity() {
     private fun init() {
 
         DB = Database(this)
-        val adapter = ArrayAdapter<String>(this, R.layout.simple_spinner_dropdown_item,ArrayList<String>())
-        //일단 추가
-        adapter.add("카테고리1")
-        adapter.add("카테고리2")
-        adapter.add("카테고리3")
 
         binding.apply {
 
