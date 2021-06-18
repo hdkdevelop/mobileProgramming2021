@@ -268,9 +268,10 @@ class Database(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_V
                         values.put(title, name)
                         values.put(detail, detail2)
                         db.update(
-                                TABLE_HABIT, values, "$habitid", arrayOf(
-                                cursor.getInt(cursor.getColumnIndex(habitid)).toString()
-                        )
+                                TABLE_HABIT, values, "$title=? AND $detail=?", arrayOf(
+                                        cursor.getString(cursor.getColumnIndex(title)),
+                                        cursor.getString(cursor.getColumnIndex(detail))
+                                )
                         )
                 }
                 cursor.close()
@@ -286,9 +287,9 @@ class Database(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_V
                         val values = ContentValues()
                         values.put(completed,completed2)
                         db.update(
-                                TABLE_HABIT, values, "$habitid", arrayOf(
-                                cursor.getInt(cursor.getColumnIndex(habitid)).toString()
-                        )
+                                TABLE_HABIT, values, "$completed=?", arrayOf(
+                                        cursor.getString(cursor.getColumnIndex(completed))
+                                )
                         )
                 }
                 cursor.close()
@@ -310,8 +311,9 @@ class Database(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_V
                                 cursor.getInt(cursor.getColumnIndex(completeddate)) - 1
                         )
                         db.update(
-                                TABLE_HABIT, values, "$habitid", arrayOf(
-                                        cursor.getInt(cursor.getColumnIndex(habitid)).toString()
+                                TABLE_HABIT, values, "$streak=? AND $completeddate=?", arrayOf(
+                                        cursor.getInt(cursor.getColumnIndex(streak)).toString(),
+                                        cursor.getString(cursor.getColumnIndex(completeddate))
                                 )
                         )
                         println("됨")
@@ -335,9 +337,10 @@ class Database(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_V
                 var flag = cursor.moveToFirst()
                 if(flag) {
                         db.update(
-                                TABLE_HABIT, values, "$habitid", arrayOf(
-                                cursor.getInt(cursor.getColumnIndex(habitid)).toString()
-                        )
+                                TABLE_HABIT, values, "$streak=?",
+                                arrayOf(
+                                        cursor.getInt(cursor.getColumnIndex(streak)).toString()
+                                )
                         )
                         println("+")
                 }
@@ -359,9 +362,10 @@ class Database(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_V
                 var flag = cursor.moveToFirst()
                 if(flag) {
                         db.update(
-                                TABLE_HABIT, values, "$habitid", arrayOf(
-                                cursor.getInt(cursor.getColumnIndex(habitid)).toString()
-                        )
+                                TABLE_HABIT, values, "$completeddate=?",
+                                arrayOf(
+                                        cursor.getInt(cursor.getColumnIndex(completeddate)).toString()
+                                )
                         )
                         println("+")
                 }

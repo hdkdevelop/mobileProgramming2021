@@ -74,7 +74,7 @@ class EditDetailedActivity : AppCompatActivity() {
         initText()
         editBtn.setOnClickListener{
             db.updateHabit(id,nametext.text.toString(),detailtext.text.toString())
-
+            onBackPressed()
         }
         backBtn.setOnClickListener{
             onBackPressed()
