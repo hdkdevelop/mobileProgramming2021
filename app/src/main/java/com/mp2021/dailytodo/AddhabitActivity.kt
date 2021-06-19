@@ -85,9 +85,10 @@ class AddhabitActivity : AppCompatActivity() {
                     }else{
                         Toast.makeText(this@AddhabitActivity, "습관 추가 실패", Toast.LENGTH_SHORT).show()
                     }
+                    clearEditText()
+                    finish()
                 }
-                clearEditText()
-                finish()
+
                 //이전화면으로
             }
 
