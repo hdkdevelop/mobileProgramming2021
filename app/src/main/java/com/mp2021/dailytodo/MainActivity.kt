@@ -133,7 +133,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initData() {
-        data.clear()
+        //data.clear()
         var favored = DB.getFavored()
         if (favored == null)
             data.add(MyHabit("12.1", "12.2", 3, "13", 1.2.toLong(), 0))

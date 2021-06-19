@@ -287,8 +287,8 @@ class Database(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_V
                         val values = ContentValues()
                         values.put(completed,completed2)
                         db.update(
-                                TABLE_HABIT, values, "$completed=?", arrayOf(
-                                        cursor.getString(cursor.getColumnIndex(completed))
+                                TABLE_HABIT, values, "$habitid=?", arrayOf(
+                                        cursor.getString(cursor.getColumnIndex(habitid))
                                 )
                         )
                 }
@@ -311,8 +311,8 @@ class Database(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_V
                                 cursor.getInt(cursor.getColumnIndex(completeddate)) - 1
                         )
                         db.update(
-                                TABLE_HABIT, values, "$streak=? AND $completeddate=?", arrayOf(
-                                        cursor.getInt(cursor.getColumnIndex(streak)).toString(),
+                                TABLE_HABIT, values, "$habitid=? AND $completeddate=?", arrayOf(
+                                        cursor.getInt(cursor.getColumnIndex(habitid)).toString(),
                                         cursor.getString(cursor.getColumnIndex(completeddate))
                                 )
                         )
@@ -337,9 +337,9 @@ class Database(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_V
                 var flag = cursor.moveToFirst()
                 if(flag) {
                         db.update(
-                                TABLE_HABIT, values, "$streak=?",
+                                TABLE_HABIT, values, "$habitid=?",
                                 arrayOf(
-                                        cursor.getInt(cursor.getColumnIndex(streak)).toString()
+                                        cursor.getInt(cursor.getColumnIndex(habitid)).toString()
                                 )
                         )
                         println("+")
@@ -362,9 +362,9 @@ class Database(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_V
                 var flag = cursor.moveToFirst()
                 if(flag) {
                         db.update(
-                                TABLE_HABIT, values, "$completeddate=?",
+                                TABLE_HABIT, values, "$habitid=?",
                                 arrayOf(
-                                        cursor.getInt(cursor.getColumnIndex(completeddate)).toString()
+                                        cursor.getInt(cursor.getColumnIndex(habitid)).toString()
                                 )
                         )
                         println("+")
