@@ -268,8 +268,8 @@ class Database(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_V
                         values.put(title, name)
                         values.put(detail, detail2)
                         db.update(
-                                TABLE_HABIT, values, "$title=? AND $detail=?", arrayOf(
-                                        cursor.getString(cursor.getColumnIndex(title)),
+                                TABLE_HABIT, values, "$habitid=? AND $detail=?", arrayOf(
+                                        cursor.getString(cursor.getColumnIndex(habitid)),
                                         cursor.getString(cursor.getColumnIndex(detail))
                                 )
                         )
