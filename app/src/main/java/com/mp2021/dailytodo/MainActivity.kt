@@ -160,6 +160,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun showNoti(title:String, streak:Int) {
         var text = title + "완료! - " + streak + "일 째 달성 중!! 화이팅"
+        if(streak % 7 == 0) {
+            var text = title + "완료! - " + streak + "일 째 달성 중!! 벌써 1주일이 지났어요~~ 이럴 때 더더욱 파이팅해요 :)"
+        }
+
         var builder = NotificationCompat.Builder(this, "My_channel")
             .setSmallIcon(R.drawable.ic_baseline_add_task_24)
             .setContentTitle("Daily To-Do")
