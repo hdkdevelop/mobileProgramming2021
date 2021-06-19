@@ -1,6 +1,10 @@
 package com.mp2021.dailytodo
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -8,6 +12,7 @@ import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NotificationCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mp2021.dailytodo.data.HabitHistory
@@ -113,6 +118,7 @@ class MainActivity : AppCompatActivity() {
                     DB.plusTotal(adapter.items[position].id.toInt())
                     DB.plusStreak(adapter.items[position].id.toInt())
                     adapter.items[position].streak++
+                    showNoti(adapter.items[position].habit_name, adapter.items[position].streak)
                     adapter.onBindViewHolder(holder,position)
                 } else {
                     DB.deleteHistory(data.id.toInt(), final_date)
@@ -152,4 +158,32 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun showNoti(title:String, streak:Int) {
+        var text = title + "완료! - " + streak + "일 째 달성 중!! 화이팅"
+        var builder = NotificationCompat.Builder(this, "My_channel")
+            .setSmallIcon(R.drawable.ic_baseline_add_task_24)
+            .setContentTitle("Daily To-Do")
+            .setContentText(text)
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setAutoCancel(true)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) { // 오레오 버전 이후에는 알림을 받을 때 채널이 필요
+            val channel_id = "My_channel" // 알림을 받을 채널 id 설정
+            val channel_name = "채널이름" // 채널 이름 설정
+            val descriptionText = "설명글" // 채널 설명글 설정
+            val importance = NotificationManager.IMPORTANCE_DEFAULT // 알림 우선순위 설정
+            val channel = NotificationChannel(channel_id, channel_name, importance).apply {
+                description = descriptionText
+            }
+
+            // 만든 채널 정보를 시스템에 등록
+            val notificationManager: NotificationManager =
+                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
+
+            // 알림 표시: 알림의 고유 ID(ex: 1002), 알림 결과
+            notificationManager.notify(1002, builder.build())
+        }
+
+    }
 }
